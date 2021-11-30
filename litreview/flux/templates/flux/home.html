@@ -1,0 +1,21 @@
+{% extends 'base.html' %} {% block content %}
+<h1>Home</h1>
+<nav class="bar_nav">
+  <ul>
+    <li><a href="">Flux</a></li>
+    <li><a href="">Posts</a></li>
+    <li><a href="">Abonnement</a></li>
+    <li><a href="{% url 'logout' %}">Se déconnecter</a></li>
+  </ul>
+</nav>
+{% for photo in photos %}
+<img src="{{photo.image.url}}" />
+<p>{{photo.caption}}</p>
+{% endfor %}
+<p></p>
+<a href="{% url 'photo_upload' %}">uploader une photo</a>
+<p></p>
+<a href="{% url 'changepswd' %}">changer mon mot de passe</a>
+<p></p>
+<a href="{% url 'change_profile_photo' %}">changer photo de profile</a>
+{% endblock %}
