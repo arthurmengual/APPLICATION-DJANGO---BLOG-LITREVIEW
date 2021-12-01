@@ -6,19 +6,33 @@ from . import models
 
 
 @login_required
-def home(request):
-    photos = models.Photo.objects.all()
-    return render(request, 'flux/home.html', context={'photos':photos})
+def flux(request):
+    tickets = models.Ticket.objects.all()
+    return render(request, 'flux/flux.html', context={'tickets':tickets})
+
 
 @login_required
-def photo_upload(request):
-    form = forms.PhotoForm()
+def create_ticket(request):
+    form = forms.TicketForm
     if request.method == 'POST':
-        form = forms.PhotoForm(request.POST, request.FILES)
+        form = forms.TicketForm(request.POST, request.FILES)
         if form.is_valid():
-            photo = form.save(commit=False)
-            photo.uploader = request.user
-            photo.save()
-            return redirect('home')
+            ticket = form.save(commit=False)
+            ticket.uploader = request.user
+            ticket.save()
+            return redirect('flux')
+    
+    return render(request, 'flux/create_ticket.html', context={'form':form})
 
-    return render(request, 'flux/photo_upload.html', context={'form':form})
+@login_required
+def create_review(request):
+    form = forms.ReviewForm()
+    if request.method == 'POST':
+        form = forms.ReviewForm(request.POST, request.FILES)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.uploader = request.user
+            review.save()
+            return redirect('flux')
+
+    return render(request, 'flux/create_review.html', context={'form':form})

@@ -10,8 +10,11 @@ class Photo(models.Model):
 
 
 class Ticket(models.Model):
-    # Your Ticket model definition goes here
-    pass
+    title = models.CharField(max_length=30)
+    description = models.CharField(max_length=200, null=True, blank=True)
+    image = models.ImageField()
+    uploader = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    date_created = models.DateField(auto_now_add=True)
 
 
 class Review(models.Model):

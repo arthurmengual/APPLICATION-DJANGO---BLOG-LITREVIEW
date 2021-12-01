@@ -1,0 +1,28 @@
+{% extends 'base.html' %} {% block content %}
+<ul class="nav">
+  <li><a href="{% url 'logout' %}">Se déconnecter</a></li>
+  <li><a href="">Posts</a></li>
+  <li><a href="">Abonnement</a></li>
+  <li><a href="">Flux</a></li>
+</ul>
+
+<h1>Flux</h1>
+
+<section class="options">
+  <a href="{% url 'create_ticket' %}"
+    >Créer un ticket &nbsp;&nbsp;&nbsp;&nbsp;
+  </a>
+  <a href="{% url 'create_review' %}">Créer une review</a>
+</section>
+
+<p></p>
+
+
+{% for ticket in tickets %}
+<section class="ticket"></section>
+  <p>Titre: {{ticket.title}}</p>
+  <p>Description: {{ticket.description}}</p>
+  <img src="{{ticket.image.url}}" />
+</section>
+
+{% endfor %} {% endblock %}
