@@ -3,7 +3,7 @@
 {% if form.errors %} {{form.errrors}} {% endif %}
 <form method="post">
   {% csrf_token %} {{form.as_p}}
-  <button>Retour</button>
+  <a href="{% url 'login' %}"> Revenir en arrière</a>
   <button type="input">s'inscrire</button>
 </form>
 {% endblock %}

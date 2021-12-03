@@ -19,10 +19,30 @@
 
 
 {% for ticket in tickets %}
-<section class="ticket"></section>
-  <p>Titre: {{ticket.title}}</p>
-  <p>Description: {{ticket.description}}</p>
-  <img src="{{ticket.image.url}}" />
-</section>
+<div class="div_ticket">
+  <section class="ticket"></section>
+    <p><strong> Titre:</strong> {{ticket.title}}</p>
+    <br>
+    <p><strong>Description:</strong> {{ticket.description}}</p>
+    <br>
+    <img src="{{ticket.image.url}}" />
+    <p><a href="{% url 'edit_ticket' ticket.id %}">Modifier le ticket</a></p>
+  </section>
+</div>
 
-{% endfor %} {% endblock %}
+{% endfor %} 
+
+{% for review in reviews %}
+<div class="div_review">
+  <section class="review"></section>
+    <p><strong> Ticket:</strong> {{review.ticket}}</p>
+    <br>
+    <p><strong>Rating:</strong> {{review.rating}}</p>
+    <br>
+    <p><strong>Body:</strong> {{review.body}}</p>
+  </section>
+</div>
+
+{% endfor %}
+
+{% endblock %}

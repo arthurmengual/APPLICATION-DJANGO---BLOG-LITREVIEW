@@ -5,7 +5,7 @@ body {
 
 /***page de connexion****/
 
-h2 {
+h1 {
   display: flex;
   justify-content: center;
 }
@@ -17,13 +17,15 @@ h2 {
 
 /****FLUX****/
 
-h1 {
+.div_ticket {
   display: flex;
   justify-content: center;
+  border: solid black 2px;
+  margin-top: 20px;
 }
 
-.ticket {
-  border: solid black 2px;
+.options a {
+  text-decoration: none;
 }
 
 /******barre de nav*****/
@@ -48,7 +50,6 @@ li a {
   text-decoration: none;
 }
 
-/* Change the link color to #111 (black) on hover */
 li a:hover {
   background-color: #111;
 }
