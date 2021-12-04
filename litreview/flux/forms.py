@@ -20,7 +20,7 @@ class ReviewForm(forms.ModelForm):
 
     class Meta:
         model = models.Review
-        fields = ['ticket', 'rating', 'body']
+        fields = ['title', 'note', 'comment']
 
 
 class DeleteTicketForm(forms.Form):

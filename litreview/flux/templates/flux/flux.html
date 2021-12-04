@@ -17,32 +17,32 @@
 
 <p></p>
 
-
 {% for ticket in tickets %}
 <div class="div_ticket">
-  <section class="ticket"></section>
+  <section class="ticket">
     <p><strong> Titre:</strong> {{ticket.title}}</p>
-    <br>
     <p><strong>Description:</strong> {{ticket.description}}</p>
-    <br>
     <img src="{{ticket.image.url}}" />
+    {% if ticket.uploader == request.user %}
     <p><a href="{% url 'edit_ticket' ticket.id %}">Modifier le ticket</a></p>
+    {% endif %}
+    <br />
+    <br />
   </section>
 </div>
 
-{% endfor %} 
-
-{% for review in reviews %}
-<div class="div_review">
-  <section class="review"></section>
-    <p><strong> Ticket:</strong> {{review.ticket}}</p>
-    <br>
-    <p><strong>Rating:</strong> {{review.rating}}</p>
-    <br>
-    <p><strong>Body:</strong> {{review.body}}</p>
+{% endfor %} {% for review in reviews %}
+<div class="div_ticket">
+  <section class="ticket">
+    <p><strong> Ticket:</strong> {{review.ticket.title}}</p>
+    <br />
+    <p><strong>Note:</strong> {{review.note}}</p>
+    <br />
+    <p><strong>Comment:</strong> {{review.comment}}</p>
+    {% if review.user == request.user %}
+    <p><a href="{% url 'edit_review' review.id %}">Modifier le ticket</a></p>
+    {% endif %}
   </section>
 </div>
 
-{% endfor %}
-
-{% endblock %}
+{% endfor %} {% endblock %}

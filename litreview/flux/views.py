@@ -27,16 +27,24 @@ def create_ticket(request):
 
 @login_required
 def create_review(request):
-    form = forms.ReviewForm()
+    formticket = forms.TicketForm()
+    formreview = forms.ReviewForm()
     if request.method == 'POST':
-        form = forms.ReviewForm(request.POST, request.FILES)
-        if form.is_valid():
-            review = form.save(commit=False)
-            review.uploader = request.user
+        formticket = forms.ReviewForm(request.POST, request.FILES)
+        formreview = forms.ReviewForm(request.POST)
+        if all([formticket.is_valid(), formreview.is_valid()]):
+            ticket = formticket.save(commit=False)
+            ticket.user = request.user
+            ticket.save()
+            review = formreview.save(commit=False)
+            review.user = request.user
+            review.ticket = ticket.id
             review.save()
             return redirect('flux')
 
-    return render(request, 'flux/create_review.html', context={'form':form})
+    context = {'formticket': formticket, 'formreview': formreview}
+
+    return render(request, 'flux/create_review.html', context=context)
 
 
 @login_required
