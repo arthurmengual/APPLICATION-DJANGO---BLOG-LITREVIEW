@@ -68,3 +68,34 @@ def edit_ticket(request, ticket_id):
         'delete_form': delete_form,
     }
     return render(request, 'flux/edit_ticket.html', context=context)
+
+
+@login_required
+def edit_review(request, review_id):
+    review = get_object_or_404(models.Ticket, id=review_id)
+    edit_form = forms.ReviewForm(instance=review)
+    delete_form = forms.DeleteReviewForm()
+    if request.method == 'POST':
+        if 'edit_review' in request.POST:
+            edit_form = forms.ReviewForm(request.POST, instance=review)
+            if edit_form.is_valid():
+                edit_form.save()
+                return redirect('flux')
+        if 'delete_review' in request.POST:
+            delete_form = forms.DeleteReviewForm(request.POST)
+            if delete_form.is_valid():
+                review.delete()
+                return redirect('flux')
+    context = {
+        'edit_form': edit_form,
+        'delete_form': delete_form,
+    }
+    return render(request, 'flux/edit_review.html', context=context)
+
+@login_required
+def posts(request):
+    tickets = models.Ticket.objects.all()
+    reviews = models.Review.objects.all()
+
+    context = {'tickets':tickets, 'reviews': reviews}
+    return render(request, 'flux/posts.html', context=context)

@@ -22,6 +22,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('authentication.urls')),
     path('', include('flux.urls')),
+    path('', include('followers.urls')),
+
 ]
 
 if settings.DEBUG:

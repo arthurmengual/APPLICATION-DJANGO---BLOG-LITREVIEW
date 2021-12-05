@@ -1,0 +1,14 @@
+{% extends 'base.html' %} {% block content %}
+
+<ul class="nav">
+  <li><a href="{% url 'logout' %}">Se déconnecter</a></li>
+  <li><a href="{% url 'posts' %}">Posts</a></li>
+  <li><a href="{% url 'followers' %}">Abonnement</a></li>
+  <li><a href="{% url 'flux' %}">Flux</a></li>
+</ul>
+
+<h1>Suivez des abonnés</h1>
+<form method="post">
+  {% csrf_token %}{{form.as_p}} <button type="submit">Follow</button>
+</form>
+{% endblock %}
