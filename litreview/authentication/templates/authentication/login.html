@@ -1,19 +1,29 @@
 {% extends 'base.html' %} {% block content %}
-<h1 id="login">LITREVIEW</h2>
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<section id="loginpage">
-  <form method="post">
-    {{ form.as_p }} {% csrf_token %}
-    <button type="submit">Se connecter</button>
-  </form>
-  <p>
-    Pas encore membre ?
-    <a href="{% url 'signup' %}">Inscrivez-vous maintenant !</a>
-  </p>
-</section>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="jumbotron">
+        <h1 class="text-center" id="login">LITREVIEW</h2>
+      </div>
+    </div>
+  </div>
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <div class="row">
+    <div class="col">
+      <form method="post">
+        {{ form.as_p }} {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Se connecter</button>
+      </form>
+    </div>
+    <div class="col">
+      Pas encore membre ?
+      <a class="btn btn-primary" href="{% url 'signup' %}" role="button">Inscrivez-vous maintenant!</a>
+    </div>
+  </div>
+</div>
 {% endblock content %}

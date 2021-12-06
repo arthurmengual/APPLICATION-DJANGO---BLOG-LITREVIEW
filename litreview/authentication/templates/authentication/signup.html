@@ -3,7 +3,9 @@
 {% if form.errors %} {{form.errrors}} {% endif %}
 <form method="post">
   {% csrf_token %} {{form.as_p}}
-  <a href="{% url 'login' %}"> Revenir en arrière</a>
-  <button type="input">s'inscrire</button>
+  <a class="btn btn-primary" href="{% url 'login' %}" role="button"
+    >Revenir en arrière</a
+  >
+  <button type="submit" class="btn btn-primary">Envoyer</button>
 </form>
 {% endblock %}

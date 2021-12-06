@@ -1,13 +1,34 @@
 {% extends 'base.html' %} {% block content %}
+
+<nav class="navbar navbar-expand bg-dark">
+  <a class="navbar-brand" href="#">litreview</a>
+  <ul class="navbar-nav">
+    <li class="nav-item active">
+      <a class="nav-link" href="{% url 'flux' %}">Flux</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'followers' %}">Abonements</a>
+    </li>
+    <li class="nav-item active">
+      <a class="nav-link" href="{% url 'posts' %}">Posts</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'logout' %}">Se déconnecter</a>
+    </li>
+  </ul>
+</nav>
+<br />
 <p>Editer le ticket</p>
 <form method="post" enctype="multipart/form-data">
-  {% csrf_token %} {{edit_form.as_p}}<button type="submit">Modifier</button>
+  {% csrf_token %} {{edit_form.as_p}}
+  <button type="submit" class="btn btn-primary">Modifier</button>
 </form>
 <br />
 <br />
 <br />
 <p>Supprimer le ticket</p>
 <form method="post">
-  {% csrf_token %} {{delete_form.as_p}}<button type="submit">Supprimer</button>
+  {% csrf_token %} {{delete_form.as_p}}
+  <button type="submit" class="btn btn-primary">Supprimer</button>
 </form>
 {% endblock %}
