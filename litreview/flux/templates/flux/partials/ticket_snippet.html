@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% block content %} 
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="card" style="width:18rem">
+            <img classe="card-img-top" src="{{post.image.url}}" />
+            <div class="card-body">
+                <h5 class="card-title">
+                    <strong>Titre:</strong>
+                    {{post.title}} 
+                </h5>
+                <p class="card-text">
+                    <strong>Description:</strong>
+                    {{post.description}}
+                </p>
+                <div class="row justify-content-center">
+                    <div class="col">
+                        {% if post.reviewed ==  True %}
+                            <p>déjà une review aller la chercher pour l'afficher</p>
+                        {% else %}
+                            <a href="{% url 'review_to_ticket' post.id %}" class="btn btn-primary">Ajouter une review</a>
+                        {% endif %}
+                    </div>
+                    <div class="col">
+                        {% if post.uploader == request.user %}
+                            <a href="{% url 'edit_ticket' post.id %}" class="btn btn-primary">Modifier le ticket</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

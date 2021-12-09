@@ -19,9 +19,9 @@
 
 <h1>Posts</h1>
 <br />
-{% for ticket in tickets %} {% if ticket.uploader == request.user
-%}{{ticket.title}}{{ticket.description}}
-<img src="{{ticket.image.url}}" /> {% endif %} {% endfor %}
+{% for ticket in tickets %} {% if ticket.uploader == request.user %}
+{{ticket.title}}{{ticket.description}} <img src="{{ticket.image.url}}" />
+{%endif %} {% endfor %}
 <br />
 {% for review in reviews %} {% if review.user == request.user %} {{review}} {%
-endif %} {% endfor %} {% endblock %}
+endif %}{% endif %} {% endfor %}{% endblock %}

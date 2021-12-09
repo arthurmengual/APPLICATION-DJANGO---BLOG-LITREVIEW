@@ -3,10 +3,12 @@ from django.conf import settings
 from django.core.validators import MinValueValidator, MaxValueValidator
 from PIL import Image
 
+
 class Photo(models.Model):
     image = models.ImageField()
     caption = models.CharField(max_length=50, blank=True)
-    uploader = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    uploader = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     date_created = models.DateField(auto_now_add=True)
 
     IMAGE_MAXSIZE = (800, 800)
@@ -21,22 +23,23 @@ class Photo(models.Model):
         self.resize_image()
 
 
-
 class Ticket(models.Model):
     title = models.CharField(max_length=30)
     description = models.CharField(max_length=200, null=True, blank=True)
     image = models.ImageField()
-    uploader = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    date_created = models.DateField(auto_now_add=True)
+    uploader = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    date_created = models.DateTimeField(auto_now_add=True)
+    reviewed = models.BooleanField(default=False)
 
 
 class Review(models.Model):
-    ticket = models.ForeignKey(to=Ticket, on_delete=models.CASCADE)
+    ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
     note = models.PositiveSmallIntegerField(
         # validates that rating must be between 0 and 5
         validators=[MinValueValidator(0), MaxValueValidator(5)])
     title = models.CharField(max_length=128)
     comment = models.CharField(max_length=8192, blank=True)
     user = models.ForeignKey(
-        to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    time_created = models.DateTimeField(auto_now_add=True)
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    date_created = models.DateTimeField(auto_now_add=True)

@@ -1,15 +1,26 @@
+import datetime
 from django.forms import models
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from . import forms
 from . import models
+from itertools import chain
+from django.db.models import Value, CharField
 
 
 @login_required
 def flux(request):
     tickets = models.Ticket.objects.all()
+    tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
     reviews = models.Review.objects.all()
-    return render(request, 'flux/flux.html', context={'tickets':tickets, 'reviews':reviews})
+    reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
+
+    posts = sorted(
+        chain(reviews, tickets),
+        key=lambda post: post.date_created,
+        reverse=True
+    )
+    return render(request, 'flux/flux.html', context={'posts': posts})
 
 
 @login_required
@@ -22,8 +33,9 @@ def create_ticket(request):
             ticket.uploader = request.user
             ticket.save()
             return redirect('flux')
-    
-    return render(request, 'flux/create_ticket.html', context={'form':form})
+
+    return render(request, 'flux/create_ticket.html', context={'form': form})
+
 
 @login_required
 def create_review(request):
@@ -34,17 +46,31 @@ def create_review(request):
         formreview = forms.ReviewForm(request.POST)
         if all([formticket.is_valid(), formreview.is_valid()]):
             ticket = formticket.save(commit=False)
-            ticket.user = request.user
+            ticket.uploader = request.user
             ticket.save()
             review = formreview.save(commit=False)
             review.user = request.user
-            review.ticket = ticket.id
+            review.ticket = ticket
             review.save()
             return redirect('flux')
 
     context = {'formticket': formticket, 'formreview': formreview}
 
     return render(request, 'flux/create_review.html', context=context)
+
+
+@login_required
+def review_to_ticket(request, ticket_id):
+    form = forms.ReviewForm()
+    ticket = get_object_or_404(models.Ticket, id=ticket_id)
+    if request.method == 'POST':
+        form = forms.ReviewForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('flux')
+
+    context = {'form': form, 'ticket': ticket}
+    return render(request, 'flux/review_to_ticket.html', context=context)
 
 
 @login_required
@@ -92,10 +118,11 @@ def edit_review(request, review_id):
     }
     return render(request, 'flux/edit_review.html', context=context)
 
+
 @login_required
 def posts(request):
     tickets = models.Ticket.objects.all()
     reviews = models.Review.objects.all()
 
-    context = {'tickets':tickets, 'reviews': reviews}
+    context = {'tickets': tickets, 'reviews': reviews}
     return render(request, 'flux/posts.html', context=context)

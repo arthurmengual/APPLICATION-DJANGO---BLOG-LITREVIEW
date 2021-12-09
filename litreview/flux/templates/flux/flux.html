@@ -39,40 +39,16 @@
   </div>
 
   <br />
-
-  {% for ticket in tickets %}
-  <div class="div_ticket">
-    <section class="ticket">
-      <br />
-      <br />
-      <p><strong> Titre:</strong> {{ticket.title}}</p>
-      <p><strong>Description:</strong> {{ticket.description}}</p>
-      <img src="{{ticket.image.url}}" />
-      <br />
-      {% if ticket.uploader == request.user %}
-      <p><a href="{% url 'edit_ticket' ticket.id %}">Modifier le ticket</a></p>
+  <div>
+    {% for post in posts %} 
+    <br>
+      {% if post.content_type == 'TICKET' %} 
+        {% include 'flux/partials/ticket_snippet.html' with post=post %} 
+      {% elif post.content_type == 'REVIEW' %} 
+        {% include 'flux/partials/review_snippet.html' with post=post %} 
       {% endif %}
-      <br />
-      <br />
-    </section>
-  </div>
-
-  {% endfor %} {% for review in reviews %}
-  <div class="div_ticket">
-    <section class="ticket">
-      <br />
-      <br />
-      <p><strong> Ticket:</strong> {{review.ticket.title}}</p>
-      <br />
-      <p><strong>Note:</strong> {{review.note}}</p>
-      <br />
-      <p><strong>Comment:</strong> {{review.comment}}</p>
-      <br />
-      {% if review.user == request.user %}
-      <p><a href="{% url 'edit_review' review.id %}">Modifier le ticket</a></p>
-      {% endif %}
-    </section>
+      <br>
+    {% endfor %}
   </div>
 </div>
-
-{% endfor %} {% endblock %}
+{% endblock %}
