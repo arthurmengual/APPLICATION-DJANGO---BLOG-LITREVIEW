@@ -31,9 +31,5 @@
 </form>
 <br>
 <br>
-<h1>Suivez des abonnés</h1>
-<form method="post">
-  {% csrf_token %}{{form.as_p}}
-  <button type="submit" class="btn btn-primary">Follow</button>
-</form>
+<p>Vous suivez: {{follows}}</p>
 {% endblock %}
