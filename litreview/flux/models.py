@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.core.validators import MinValueValidator, MaxValueValidator
 from PIL import Image
+from django.db.models.deletion import CASCADE
 
 
 class Photo(models.Model):
@@ -34,7 +35,8 @@ class Ticket(models.Model):
 
 
 class Review(models.Model):
-    ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
+    ticket = models.ForeignKey(
+        Ticket, on_delete=models.CASCADE)
     note = models.PositiveSmallIntegerField(
         # validates that rating must be between 0 and 5
         validators=[MinValueValidator(0), MaxValueValidator(5)])

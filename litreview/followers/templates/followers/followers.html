@@ -26,10 +26,10 @@
     <input class="form-control text-center" type="text" name="username" placeholder="Nom d'utilisateur">
   </div>
   <div class="col-2 d-inline-block">
-    <button class="btn btn-primary">Envoyer</button>
+    <button type="submit" class="btn btn-primary">Envoyer</button>
   </div>
 </form>
 <br>
 <br>
-<p>Vous suivez: {{follows}}</p>
+<p>Vous suivez: {{follows.username}}</p>
 {% endblock %}

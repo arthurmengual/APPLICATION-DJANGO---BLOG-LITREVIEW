@@ -66,7 +66,12 @@ def review_to_ticket(request, ticket_id):
     if request.method == 'POST':
         form = forms.ReviewForm(request.POST)
         if form.is_valid():
-            form.save()
+            ticket.reviewed = True
+            ticket.save()
+            review = form.save(commit=False)
+            review.user = request.user
+            review.ticket = ticket
+            review.save()
             return redirect('flux')
 
     context = {'form': form, 'ticket': ticket}
@@ -121,8 +126,14 @@ def edit_review(request, review_id):
 
 @login_required
 def posts(request):
-    tickets = models.Ticket.objects.all()
-    reviews = models.Review.objects.all()
+    tickets = models.Ticket.objects.filter(uploader=request.user)
+    tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
+    reviews = models.Review.objects.filter(user=request.user)
+    reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
 
-    context = {'tickets': tickets, 'reviews': reviews}
-    return render(request, 'flux/posts.html', context=context)
+    posts = sorted(
+        chain(reviews, tickets),
+        key=lambda post: post.date_created,
+        reverse=True
+    )
+    return render(request, 'flux/posts.html', context={'posts': posts})

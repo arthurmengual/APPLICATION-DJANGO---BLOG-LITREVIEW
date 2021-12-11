@@ -17,11 +17,17 @@
   </ul>
 </nav>
 
-<h1>Posts</h1>
+<h1 class="text-center">Posts</h1>
 <br />
-{% for ticket in tickets %} {% if ticket.uploader == request.user %}
-{{ticket.title}}{{ticket.description}} <img src="{{ticket.image.url}}" />
-{%endif %} {% endfor %}
-<br />
-{% for review in reviews %} {% if review.user == request.user %} {{review}} {%
-endif %}{% endif %} {% endfor %}{% endblock %}
+<div>
+  {% for post in posts %} 
+  <br>
+    {% if post.content_type == 'TICKET' %} 
+      {% include 'flux/partials/ticket_snippet.html' with post=post %}
+    {% elif post.content_type == 'REVIEW' %}
+      {% include 'flux/partials/review_snippet.html' with post=post %} 
+    {% endif %}
+    <br>
+  {% endfor %}
+</div>
+  {% endblock %}
