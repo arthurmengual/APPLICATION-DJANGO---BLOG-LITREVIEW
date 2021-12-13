@@ -8,16 +8,19 @@ from .models import UserFollows
 
 @login_required
 def followers(request):
-    follower = UserFollows()
-    user_following = get_object_or_404(UserFollows, follower=request.user)
+    context = {}
+    context['following'] = UserFollows.objects.filter(
+        following__exact=request.user)
+    context['followed_by'] = UserFollows.objects.filter(
+        follower__exact=request.user)
     if request.method == 'POST':
         try:
             search = request.POST['username']
-            user = get_object_or_404(User, username=search)
+            user = get_object_or_404(User, username__exact=search)
             follower = UserFollows(follower=request.user, following=user)
             follower.save()
             return redirect('followers')
         except:
             return HttpResponse('<h1>No user found, try again<h1/>')
 
-    return render(request, 'followers/followers.html', context={'follow': user_following})
+    return render(request, 'followers/followers.html', context=context)

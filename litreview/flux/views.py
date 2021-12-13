@@ -43,13 +43,13 @@ def create_review(request):
     formticket = forms.TicketForm()
     formreview = forms.ReviewForm()
     if request.method == 'POST':
-        formticket = forms.ReviewForm(request.POST, request.FILES)
+        formticket = forms.TicketForm(request.POST, request.FILES)
         formreview = forms.ReviewForm(request.POST)
         if all([formticket.is_valid(), formreview.is_valid()]):
             ticket = formticket.save(commit=False)
             ticket.uploader = request.user
+            ticket.reviewed = True
             ticket.save()
-            ticket = Ticket.objects.get(id__exact=ticket.id)
             review = formreview.save(commit=False)
             review.user = request.user
             review.ticket = ticket
