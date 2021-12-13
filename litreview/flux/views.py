@@ -6,6 +6,7 @@ from . import forms
 from . import models
 from itertools import chain
 from django.db.models import Value, CharField
+from .models import Ticket
 
 
 @login_required
@@ -48,6 +49,7 @@ def create_review(request):
             ticket = formticket.save(commit=False)
             ticket.uploader = request.user
             ticket.save()
+            ticket = Ticket.objects.get(id__exact=ticket.id)
             review = formreview.save(commit=False)
             review.user = request.user
             review.ticket = ticket

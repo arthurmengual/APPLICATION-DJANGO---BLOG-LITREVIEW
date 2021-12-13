@@ -19,7 +19,8 @@
 </nav>
 <br>
 <br>
-<h1>Chercher un abonné</h1>
+<h1>Suivre d'autres utilisateurs</h1>
+<br>
 <form action="{% url 'followers' %}" method="post">
   {% csrf_token %}
   <div class="col-3 d-inline-block">
@@ -31,5 +32,13 @@
 </form>
 <br>
 <br>
-<p>Vous suivez: {{follows.username}}</p>
+<div>
+  <h1>Abonnements</h1>
+</div>
+<p>Vous suivez: {{following.username}}</p>
+<br>
+<br>
+<div>
+  <h1>Abonnés</h1>
+</div>
 {% endblock %}
