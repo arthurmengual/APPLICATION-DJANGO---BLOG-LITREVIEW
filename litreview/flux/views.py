@@ -105,7 +105,7 @@ def edit_ticket(request, ticket_id):
 
 @login_required
 def edit_review(request, review_id):
-    review = get_object_or_404(models.Ticket, id=review_id)
+    review = get_object_or_404(models.Review, id=review_id)
     edit_form = forms.ReviewForm(instance=review)
     delete_form = forms.DeleteReviewForm()
     if request.method == 'POST':

@@ -35,11 +35,18 @@
 <div>
   <h1>Abonnements</h1>
 </div>
-<p>Vous suivez: {{following}}</p>
+<p>Vous suivez: </p>
+{% for follow in followers %}
+  <p>{{follow.following}} <a class="btn btn-primary" href="{% url 'unfollow' follow.following.id %}" role="button"
+        >unfollow</a></p>
+{% endfor %}
 <br>
 <br>
 <div>
   <h1>Abonnés</h1>
-  <p>vous êtes suivi par: {{follower}}</p>
+  <p>vous êtes suivi par:</p>
+{% for follow in followed %}
+  <p>{{follow.follower}}</p>
+{% endfor %}
 </div>
 {% endblock %}

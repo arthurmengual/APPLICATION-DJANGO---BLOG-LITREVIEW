@@ -1,5 +1,16 @@
 {% extends 'base.html' %} {% block content %} 
-<div class="container">
+<div class="container">      
+    
+    <div class="row justify-content-center">
+        <div class="card" style="width:18rem">  
+            <div class="card-body">
+                {{post.ticket.title}}
+            </div> 
+            <div class="card-body">
+                <img src="{{post.ticket.image.url}}">
+            </div>  
+        </div>
+    </div>
     <div class="row justify-content-center">
         <div class="card" style="width:18rem">
             <div class="card-body">
@@ -14,6 +25,11 @@
                 <p class="card-text">
                     <strong>Comment:</strong>
                     {{post.comment}} 
+                </p>
+                <p class="card-text">
+                    {% if post.user == request.user %}
+                        <a href="{% url 'edit_review' post.id %}" class="btn btn-primary">Modifier review</a>
+                    {% endif %}
                 </p>
             </div>
         </div>

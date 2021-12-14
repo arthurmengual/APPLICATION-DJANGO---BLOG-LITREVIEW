@@ -8,10 +8,9 @@ from .models import UserFollows
 
 @login_required
 def followers(request):
-    context = {}
-    context['following'] = UserFollows.objects.filter(
+    followed = UserFollows.objects.filter(
         following__exact=request.user)
-    context['followed_by'] = UserFollows.objects.filter(
+    followers = UserFollows.objects.filter(
         follower__exact=request.user)
     if request.method == 'POST':
         try:
@@ -23,4 +22,12 @@ def followers(request):
         except:
             return HttpResponse('<h1>No user found, try again<h1/>')
 
-    return render(request, 'followers/followers.html', context=context)
+    return render(request, 'followers/followers.html', context={'followed': followed, 'followers': followers})
+
+
+@login_required
+def unfollow(request, user_id):
+    follow = UserFollows.objects.filter(
+        following__exact=user_id).filter(follower__exact=request.user)
+    follow.delete()
+    return redirect('followers')
