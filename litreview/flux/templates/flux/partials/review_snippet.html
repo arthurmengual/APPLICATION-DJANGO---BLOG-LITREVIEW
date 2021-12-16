@@ -4,6 +4,7 @@
     <div class="row justify-content-center">
         <div class="card" style="width:18rem">  
             <div class="card-body">
+                Titre:
                 {{post.ticket.title}}
             </div> 
             <div class="card-body">
@@ -13,6 +14,12 @@
     </div>
     <div class="row justify-content-center">
         <div class="card" style="width:18rem">
+            {% if post.user == request.user %}
+                <small>Vous avez créé une critique</small>
+            {% else %}
+                <small>{{post.user}} a créé une critique</small>
+            {% endif %}
+            <small>{{post.date_created}}</small>
             <div class="card-body">
                 <h5 class="card-title">
                     <strong>Titre:</strong>

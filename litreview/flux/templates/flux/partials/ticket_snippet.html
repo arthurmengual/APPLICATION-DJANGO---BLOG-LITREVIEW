@@ -2,6 +2,12 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="card" style="width:18rem">
+            {% if post.uploader == request.user %}
+                <small>Vous avez demandé une critique</small>
+            {% else %}
+                <small>{{post.uploader}} a demandé une critique</small>
+            {% endif %}
+            <small>{{post.date_created}}</small>
             <img classe="card-img-top" src="{{post.image.url}}" />
             <div class="card-body">
                 <h5 class="card-title">

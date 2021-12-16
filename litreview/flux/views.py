@@ -6,14 +6,19 @@ from . import forms
 from . import models
 from itertools import chain
 from django.db.models import Value, CharField
-from .models import Ticket
+from followers.models import UserFollows
+from django.db.models import Q
 
 
 @login_required
 def flux(request):
-    tickets = models.Ticket.objects.all()
+    followers = UserFollows.objects.filter(follower=request.user)
+    followers = [follower.following.id for follower in followers]
+    tickets = models.Ticket.objects.filter(
+        Q(uploader__exact=request.user) | Q(uploader__in=followers))
     tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
-    reviews = models.Review.objects.all()
+    reviews = models.Review.objects.filter(Q(
+        user__exact=request.user) | Q(user__in=followers))
     reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
 
     posts = sorted(
@@ -24,7 +29,7 @@ def flux(request):
     return render(request, 'flux/flux.html', context={'posts': posts})
 
 
-@login_required
+@ login_required
 def create_ticket(request):
     form = forms.TicketForm
     if request.method == 'POST':
@@ -38,7 +43,7 @@ def create_ticket(request):
     return render(request, 'flux/create_ticket.html', context={'form': form})
 
 
-@login_required
+@ login_required
 def create_review(request):
     formticket = forms.TicketForm()
     formreview = forms.ReviewForm()
@@ -61,7 +66,7 @@ def create_review(request):
     return render(request, 'flux/create_review.html', context=context)
 
 
-@login_required
+@ login_required
 def review_to_ticket(request, ticket_id):
     form = forms.ReviewForm()
     ticket = get_object_or_404(models.Ticket, id=ticket_id)
@@ -80,7 +85,7 @@ def review_to_ticket(request, ticket_id):
     return render(request, 'flux/review_to_ticket.html', context=context)
 
 
-@login_required
+@ login_required
 def edit_ticket(request, ticket_id):
     ticket = get_object_or_404(models.Ticket, id=ticket_id)
     edit_form = forms.TicketForm(instance=ticket)
@@ -103,7 +108,7 @@ def edit_ticket(request, ticket_id):
     return render(request, 'flux/edit_ticket.html', context=context)
 
 
-@login_required
+@ login_required
 def edit_review(request, review_id):
     review = get_object_or_404(models.Review, id=review_id)
     edit_form = forms.ReviewForm(instance=review)
@@ -126,7 +131,7 @@ def edit_review(request, review_id):
     return render(request, 'flux/edit_review.html', context=context)
 
 
-@login_required
+@ login_required
 def posts(request):
     tickets = models.Ticket.objects.filter(uploader=request.user)
     tickets = tickets.annotate(content_type=Value('TICKET', CharField()))

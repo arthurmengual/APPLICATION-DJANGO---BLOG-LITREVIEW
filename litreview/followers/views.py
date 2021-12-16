@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from authentication.models import User
 from .models import UserFollows
+from django.contrib import messages
 
 
 @login_required
@@ -20,7 +21,7 @@ def followers(request):
             follower.save()
             return redirect('followers')
         except:
-            return HttpResponse('<h1>No user found, try again<h1/>')
+            return messages.error(request, "Cette utilisateur n'existe pas, veuillez réessayer")
 
     return render(request, 'followers/followers.html', context={'followed': followed, 'followers': followers})
 

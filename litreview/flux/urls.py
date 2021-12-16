@@ -1,5 +1,5 @@
 from . import views
-from django.urls import path
+from django.urls import path, include
 
 urlpatterns = [
     path('flux/', views.flux, name='flux'),
@@ -10,4 +10,5 @@ urlpatterns = [
     path('posts/', views.posts, name='posts'),
     path('review/to/ticket/<int:ticket_id>/',
          views.review_to_ticket, name='review_to_ticket'),
+    path('ratings/', include('star_ratings.urls', namespace='ratings')),
 ]
