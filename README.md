@@ -11,7 +11,7 @@ L’application présente deux cas d’utilisation principaux :
 -Les personnes qui demandent des critiques sur un livre ou sur un article particulier ;
 -Les personnes qui recherchent des articles et des livres intéressants à lire, en se basant sur les critiques des autres.
 ### Screenshot
-![Image text](litreview/images/Screenshot from 2021-12-16 10-20-40.png)
+![Image text](images/Screenshot from 2021-12-16 10-20-40.png)
 ## Technologies
 ***
 A list of technologies used within the project:
