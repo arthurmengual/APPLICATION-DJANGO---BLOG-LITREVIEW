@@ -1,3 +1,4 @@
+from typing import Literal
 from django.contrib.auth import login
 from django.http.response import HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
@@ -21,7 +22,9 @@ def followers(request):
             follower.save()
             return redirect('followers')
         except:
-            return messages.error(request, "Cette utilisateur n'existe pas, veuillez réessayer")
+            messages.error(
+                request, "Cette utilisateur n'existe pas, veuillez réessayer")
+            return redirect('followers')
 
     return render(request, 'followers/followers.html', context={'followed': followed, 'followers': followers})
 

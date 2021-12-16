@@ -31,6 +31,13 @@
   </div>
 </form>
 <br>
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-danger" role="alert">
+      {{message}}
+    </div>
+  {% endfor %}
+{% endif %}
 <br>
 <div>
   <h1>Abonnements</h1>
