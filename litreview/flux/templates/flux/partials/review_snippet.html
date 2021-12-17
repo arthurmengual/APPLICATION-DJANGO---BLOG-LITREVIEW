@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block content %} 
+{% extends 'base.html' %} {% block content %} {% load ratings %}
 <div class="container">      
     
     <div class="row justify-content-center">
@@ -23,7 +23,7 @@
             <div class="card-body">
                 <h5 class="card-title">
                     <strong>Titre:</strong>
-                    {{post.title}} 
+                    {{post.titleR}} 
                 </h5>
                 <p class="card-text">
                     <strong>Note:</strong>
@@ -32,6 +32,9 @@
                 <p class="card-text">
                     <strong>Comment:</strong>
                     {{post.comment}} 
+                </p>
+                <p>
+                {% ratings post %}
                 </p>
                 <p class="card-text">
                     {% if post.user == request.user %}

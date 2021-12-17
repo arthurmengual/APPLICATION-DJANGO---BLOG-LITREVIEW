@@ -1,6 +1,7 @@
 from django import forms
 from . import models
 
+
 class PhotoForm(forms.ModelForm):
     class Meta:
         model = models.Photo
@@ -20,7 +21,7 @@ class ReviewForm(forms.ModelForm):
 
     class Meta:
         model = models.Review
-        fields = ['title', 'note', 'comment']
+        fields = ['titleR', 'comment']
 
 
 class DeleteTicketForm(forms.Form):

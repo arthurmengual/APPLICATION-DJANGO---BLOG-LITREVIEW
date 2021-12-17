@@ -40,7 +40,7 @@ class Review(models.Model):
     note = models.PositiveSmallIntegerField(
         # validates that rating must be between 0 and 5
         validators=[MinValueValidator(0), MaxValueValidator(5)])
-    title = models.CharField(max_length=128)
+    titleR = models.CharField(max_length=128, verbose_name='titre')
     comment = models.CharField(max_length=8192, blank=True)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
