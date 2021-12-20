@@ -10,5 +10,4 @@ urlpatterns = [
     path('posts/', views.posts, name='posts'),
     path('review/to/ticket/<int:ticket_id>/',
          views.review_to_ticket, name='review_to_ticket'),
-    path('ratings/', include('star_ratings.urls', namespace='ratings')),
 ]

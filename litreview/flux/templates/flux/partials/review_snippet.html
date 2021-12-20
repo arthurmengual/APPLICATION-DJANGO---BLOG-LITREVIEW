@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block content %} {% load ratings %}
+{% extends 'base.html' %} {% block content %} {% load range %} {% load mathfilters %}
 <div class="container">      
     
     <div class="row justify-content-center">
@@ -26,15 +26,19 @@
                     {{post.titleR}} 
                 </h5>
                 <p class="card-text">
-                    <strong>Note:</strong>
-                    {{post.note}}
-                </p>
-                <p class="card-text">
                     <strong>Comment:</strong>
                     {{post.comment}} 
                 </p>
                 <p>
-                {% ratings post %}
+                    <strong>Note:</strong>
+                    {% for value in post.note|range %}    
+                        <span>&#9733;</span>
+                    {% endfor %}
+                    {% for value in 4|sub:post.note|range %}    
+                        <span>&#9734;</span>
+                    {% endfor %}
+
+                    <span>&#9734;</span>
                 </p>
                 <p class="card-text">
                     {% if post.user == request.user %}

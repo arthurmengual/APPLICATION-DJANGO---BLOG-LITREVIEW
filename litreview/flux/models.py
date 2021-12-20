@@ -1,8 +1,12 @@
+from django.core import validators
 from django.db import models
 from django.conf import settings
 from django.core.validators import MinValueValidator, MaxValueValidator
 from PIL import Image
 from django.db.models.deletion import CASCADE
+from django.forms.widgets import RadioSelect
+from django.utils.regex_helper import Choice
+from django import forms
 
 
 class Photo(models.Model):
@@ -35,11 +39,12 @@ class Ticket(models.Model):
 
 
 class Review(models.Model):
+    CHOICE = [(1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5')]
+
     ticket = models.ForeignKey(
         Ticket, on_delete=models.CASCADE)
-    note = models.PositiveSmallIntegerField(
-        # validates that rating must be between 0 and 5
-        validators=[MinValueValidator(0), MaxValueValidator(5)])
+    note = models.PositiveSmallIntegerField(validators=[MinValueValidator(
+        0), MaxValueValidator(5)], choices=CHOICE, default=5)
     titleR = models.CharField(max_length=128, verbose_name='titre')
     comment = models.CharField(max_length=8192, blank=True)
     user = models.ForeignKey(

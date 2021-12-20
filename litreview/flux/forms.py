@@ -1,4 +1,5 @@
 from django import forms
+from django.forms.widgets import RadioSelect
 from . import models
 
 
@@ -21,7 +22,8 @@ class ReviewForm(forms.ModelForm):
 
     class Meta:
         model = models.Review
-        fields = ['titleR', 'comment']
+        fields = ['titleR', 'comment', 'note']
+        widgets = {'note': forms.RadioSelect}
 
 
 class DeleteTicketForm(forms.Form):
