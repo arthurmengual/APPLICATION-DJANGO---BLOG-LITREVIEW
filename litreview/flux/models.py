@@ -1,12 +1,7 @@
-from django.core import validators
 from django.db import models
 from django.conf import settings
 from django.core.validators import MinValueValidator, MaxValueValidator
 from PIL import Image
-from django.db.models.deletion import CASCADE
-from django.forms.widgets import RadioSelect
-from django.utils.regex_helper import Choice
-from django import forms
 
 
 class Photo(models.Model):

@@ -34,11 +34,11 @@
                     {% for value in post.note|range %}    
                         <span>&#9733;</span>
                     {% endfor %}
-                    {% for value in 4|sub:post.note|range %}    
-                        <span>&#9734;</span>
-                    {% endfor %}
-
-                    <span>&#9734;</span>
+                    {% if post.note != 5 %}
+                        {% for value in 5|sub:post.note|range %}    
+                            <span>&#9734;</span>
+                        {% endfor %}
+                    {% endif %}
                 </p>
                 <p class="card-text">
                     {% if post.user == request.user %}
