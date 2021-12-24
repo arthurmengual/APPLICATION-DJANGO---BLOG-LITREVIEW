@@ -4,9 +4,10 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "*"
+Django = "*"
 python-dateutil = "*"
-django-star-ratings = "*"
+django-mathfilters = "*"
+flake8 = "*"
 
 [dev-packages]
 

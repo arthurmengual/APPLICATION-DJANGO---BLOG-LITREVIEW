@@ -10,7 +10,7 @@ Litreview est une application web permettant de demander ou publier des critique
 L’application présente deux cas d’utilisation principaux : 
 -Les personnes qui demandent des critiques sur un livre ou sur un article particulier ;
 -Les personnes qui recherchent des articles et des livres intéressants à lire, en se basant sur les critiques des autres.
-### Screenshot
+### Logo
 ![litreview](images/pic.png)
 ## Technologies
 ***
@@ -18,16 +18,16 @@ A list of technologies used within the project:
 * [Python3](https://example.com): Version 3.9.7 
 * [Django](https://example.com): Version 4.0
 * [python-dateutil](https://example.com)
-* [django-star-ratings](https://example.com)
 ## Installation
 ***
 A little intro about the installation. 
 ```
 $ pipenv install
 $ pipenv shell
-$ pipenv install django
 $ git clone https://github.com/arthurmengual/P9.git
+$ pipen install [packages]
 $ cd litreview
+$ ./manage.py migrate
 $ ./manage.py runserver
 ```
 Side information: To use the application in a special environment use ```lorem ipsum``` to start
