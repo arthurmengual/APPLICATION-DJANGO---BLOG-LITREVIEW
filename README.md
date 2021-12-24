@@ -25,7 +25,7 @@ A little intro about the installation.
 $ pipenv install
 $ pipenv shell
 $ git clone https://github.com/arthurmengual/P9.git
-$ pipen install [packages]
+$ pipen install
 $ cd litreview
 $ ./manage.py migrate
 $ ./manage.py runserver
